@@ -1,0 +1,23 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "a virtual dashborad for the pfs project",
+  "main": "main.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^24.3.0"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "canvas-gauges": "^2.1.7",
+    "fetch": "^1.1.0",
+    "ipc": "^0.0.1",
+    "node-fetch": "^3.3.1",
+    "remote": "^0.2.6",
+    "steelseries": "^2.0.7"
+  }
+}

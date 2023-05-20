@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gauge Test</title>
+    <script src="./node_modules/canvas-gauges/gauge.min.js"></script>
+    <style>body {
+        padding: 20px;
+        margin: 0;
+        background: #fff
+    }
+</style>
+</head>
+<body>
+
+
+<canvas id="gauge-MAP"></canvas>
+<canvas id="gauge-AFR"></canvas>
+<script>
+    const {ipcRenderer} = require('electron');
+    const r = require('canvas-gauges');
+    const axios = require('axios');
+    var gaugeMAP = new r.RadialGauge({
+        renderTo: 'gauge-MAP',
+        width: window.innerWidth*0.4,
+        height: window.innerHeight*0.4,
+        units: 'Pa',
+        title: 'MAP',
+        minValue: 50,
+        maxValue: 130,
+        majorTicks: [
+            '50',
+            '90',
+            '130'
+        ],
+        minorTicks: 10,
+        ticksAngle: 100,
+        startAngle: 45,
+        strokeTicks: true,
+        highlights  : [
+            { from : 50,  to : 75, color : 'rgba(78,   78, 200, 0.5)' },
+            { from : 100, to : 130, color : 'rgba(225, 7, 23, 0.75)' }
+        ],
+        valueInt: 1,
+        valueDec: 0,
+        colorPlate: "#fff",
+        colorMajorTicks: "#686868",
+        colorMinorTicks: "#686868",
+        colorTitle: "#000",
+        colorUnits: "#000",
+        colorNumbers: "#686868",
+        valueBox: true,
+        colorValueText: "#000",
+        colorValueBoxRect: "#fff",
+        colorValueBoxRectEnd: "#fff",
+        colorValueBoxBackground: "#fff",
+        colorValueBoxShadow: false,
+        colorValueTextShadow: false,
+        colorNeedleShadowUp: true,
+        colorNeedleShadowDown: false,
+        colorNeedle: "rgba(200, 50, 50, .75)",
+        colorNeedleEnd: "rgba(200, 50, 50, .75)",
+        colorNeedleCircleOuter: "rgba(200, 200, 200, 1)",
+        colorNeedleCircleOuterEnd: "rgba(200, 200, 200, 1)",
+        borderShadowWidth: 0,
+        borders: false,
+        borderInnerWidth: 0,
+        borderMiddleWidth: 0,
+        borderOuterWidth: 0,
+        colorBorderOuter: "#fafafa",
+        colorBorderOuterEnd: "#cdcdcd",
+        needleType: "arrow",
+        needleWidth: 2,
+        needleCircleSize: 7,
+        needleCircleOuter: true,
+        needleCircleInner: false,
+        animationDuration: 500,
+        animationRule: "dequint",
+        fontNumbers: "Verdana",
+        fontTitle: "Verdana",
+        fontUnits: "Verdana",
+        fontValue: "Led",
+        fontValueStyle: 'italic',
+        fontNumbersSize: 20,
+        fontNumbersStyle: 'italic',
+        fontNumbersWeight: 'bold',
+        fontTitleSize: 24,
+        fontUnitsSize: 22,
+        fontValueSize: 22,
+        animatedValue: true
+    });
+    var gaugeAFR = new r.RadialGauge({
+        renderTo: 'gauge-AFR',
+        width: window.innerWidth*0.4,
+        height: window.innerHeight*0.4,
+        units: ' ',
+        title: 'Air-Fuel Ratio',
+        minValue: 50,
+        maxValue: 130,
+        majorTicks: [
+            '50',
+            '90',
+            '130'
+        ],
+        minorTicks: 10,
+        ticksAngle: 100,
+        startAngle: 45,
+        strokeTicks: true,
+        highlights  : [
+            { from : 50,  to : 75, color : 'rgba(78,   78, 200, 0.5)' },
+            { from : 100, to : 130, color : 'rgba(225, 7, 23, 0.75)' }
+        ],
+        valueInt: 1,
+        valueDec: 0,
+        colorPlate: "#fff",
+        colorMajorTicks: "#686868",
+        colorMinorTicks: "#686868",
+        colorTitle: "#000",
+        colorUnits: "#000",
+        colorNumbers: "#686868",
+        valueBox: true,
+        colorValueText: "#000",
+        colorValueBoxRect: "#fff",
+        colorValueBoxRectEnd: "#fff",
+        colorValueBoxBackground: "#fff",
+        colorValueBoxShadow: false,
+        colorValueTextShadow: false,
+        colorNeedleShadowUp: true,
+        colorNeedleShadowDown: false,
+        colorNeedle: "rgba(200, 50, 50, .75)",
+        colorNeedleEnd: "rgba(200, 50, 50, .75)",
+        colorNeedleCircleOuter: "rgba(200, 200, 200, 1)",
+        colorNeedleCircleOuterEnd: "rgba(200, 200, 200, 1)",
+        borderShadowWidth: 0,
+        borders: false,
+        borderInnerWidth: 0,
+        borderMiddleWidth: 0,
+        borderOuterWidth: 0,
+        colorBorderOuter: "#fafafa",
+        colorBorderOuterEnd: "#cdcdcd",
+        needleType: "arrow",
+        needleWidth: 2,
+        needleCircleSize: 7,
+        needleCircleOuter: true,
+        needleCircleInner: false,
+        animationDuration: 500,
+        animationRule: "dequint",
+        fontNumbers: "Verdana",
+        fontTitle: "Verdana",
+        fontUnits: "Verdana",
+        fontValue: "Led",
+        fontValueStyle: 'italic',
+        fontNumbersSize: 20,
+        fontNumbersStyle: 'italic',
+        fontNumbersWeight: 'bold',
+        fontTitleSize: 24,
+        fontUnitsSize: 22,
+        fontValueSize: 22,
+        animatedValue: true
+    });
+    gaugeMAP.draw();
+    gaugeMAP.value = 60;
+
+    gaugeAFR.draw();
+    gaugeARF.value = 90;
+</script>
+
+</body>
+</html>
