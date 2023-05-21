@@ -16,6 +16,7 @@
 
 <canvas id="gauge-MAP"></canvas>
 <canvas id="gauge-AFR"></canvas>
+<button onclick="load_main()">back</button>
 <script>
     const {ipcRenderer} = require('electron');
     const r = require('canvas-gauges');
@@ -163,6 +164,11 @@
 
     gaugeAFR.draw();
     gaugeARF.value = 90;
+
+    function load_main()
+    {
+        ipcRenderer.send('load-main', 'file://' + __dirname + '/index.html');
+    }
 </script>
 
 </body>

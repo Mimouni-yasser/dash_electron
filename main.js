@@ -1,5 +1,9 @@
 const { app, BrowserWindow } = require('electron')
-const {ipcMain} = require('electron')
+const {ipcMain} = require('electron');
+const http = require('http');
+
+hostname = '127.0.0.1';
+port = '3000';
 
 let win;
 
@@ -12,7 +16,11 @@ function createWindow() {
       contextIsolation: false
     },
   });
- ipcMain.on('load-page', (event, arg) => {
+ ipcMain.on('load-sensors', (event, arg) => {
+    win.loadURL(arg);
+});
+
+ ipcMain.on('load-main', (event, arg) => {
     win.loadURL(arg);
 });
 
@@ -21,6 +29,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
+  openServer();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -30,5 +39,19 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
+
+function openServer()
+{
+  const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+  });
+
+  server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+
+}
 
 
