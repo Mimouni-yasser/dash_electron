@@ -16,7 +16,7 @@
 
 <canvas id="gauge-MAP"></canvas>
 <canvas id="gauge-AFR"></canvas>
-<button onclick="load_main()">back</button>
+<button onclick="ipcRenderer.send('load-main', 'file://' + __dirname + '/main.html');">back</button>
 <script>
     const {ipcRenderer} = require('electron');
     const r = require('canvas-gauges');
@@ -167,7 +167,7 @@
 
     function load_main()
     {
-        ipcRenderer.send('load-main', 'file://' + __dirname + '/index.html');
+        ipcRenderer.send('load-main', 'file://' + __dirname + '/main.html');
     }
 </script>
 

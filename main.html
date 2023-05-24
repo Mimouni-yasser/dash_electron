@@ -16,11 +16,23 @@
 <canvas id="gauge-RPM"></canvas>
 <canvas id="gauge-TEMP"></canvas>
 <br>
-<button onclick="load_sensors()">show sensors</button>
+<button onclick="ipcRenderer.send('load-sensors', 'file://' + __dirname + '/SENSORS.html');">show sensors</button>
 <script>
     const {ipcRenderer} = require('electron');
     const r = require('canvas-gauges');
     const axios = require('axios');
+
+    let ip = "";
+    ipcRenderer.send('get_ip');
+    ipcRenderer.on('IP', (event, arg)=>{
+        console.log(arg);
+        ip = arg;
+
+    });
+
+    window.onload = ipcRenderer.send('get_IP');
+    
+
     var gaugeRPM = new r.RadialGauge({
         renderTo: 'gauge-RPM',
         width: window.innerWidth*0.7,
@@ -172,9 +184,10 @@
     gaugeTEMP.draw();
     gaugeTEMP.value = 90;
 
+
     function update_values()
     {
-        axios.get('http://192.168.68.211/TEMP').then(resp => {
+        axios.get('http://'+ip+'TEMP').then(resp => {
         console.log(resp.data);
         gaugeTEMP.value = resp.data;
     });
@@ -183,15 +196,7 @@
         gaugeRPM.value = resp.data;
     });
 
-    }
-
-    function load_sensors()
-    {
-        ipcRenderer.send('load-sensors', 'file://' + __dirname + '/SENSORS.html');
-
-    }
-
-    setInterval(update_values, 500);
+}
 </script>
 
 </body>

@@ -6,7 +6,7 @@ hostname = '127.0.0.1';
 port = '3000';
 
 let win;
-
+let ip;
 function createWindow() {
  win = new BrowserWindow({
     width: 800,
@@ -24,12 +24,20 @@ function createWindow() {
     win.loadURL(arg);
 });
 
-  win.loadFile('index.html');
+ipcMain.on('IP_config', (event, arg) => {
+  ip = arg;
+  win.loadFile('main.html');
+});
+
+ipcMain.on('get_IP', (event) => {
+  console.log(ip);
+  event.sender.send('IP', ip);
+});
+win.loadFile('config.html');
 }
 
 app.whenReady().then(() => {
   createWindow();
-  openServer();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -40,18 +48,8 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
-function openServer()
-{
-  const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-  });
 
-  server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
 
-}
+
 
 
